@@ -1,0 +1,137 @@
+[package]
+name = "rws"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+base64 = "0.22.1"
+libc = "0.2.186"
+openssl = "0.10.78"
+rand = "0.10.1"
+rustls = "0.23.40"
+sha1 = "0.11.0"
+
+
+[features]
+default = []
+
+[lints.clippy]
+all      = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+
+# --- Allowed ---
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+
+# --- Restriction lints (cherry-picked, not in all/pedantic) ---
+absolute_paths                       = "warn"
+alloc_instead_of_core                = "warn"
+allow_attributes                     = "warn"
+as_conversions                       = "warn"
+as_ptr_underscore                    = "warn"
+cfg_not_test                         = "warn"
+clone_on_ref_ptr                     = "warn"
+create_dir                           = "warn"
+dbg_macro                            = "warn"
+decimal_literal_representation       = "warn"
+default_union_representation         = "deny"
+deref_by_slicing                     = "warn"
+else_if_without_else                 = "warn"
+empty_drop                           = "deny"
+empty_enum_variants_with_brackets    = "warn"
+empty_structs_with_brackets          = "warn"
+field_scoped_visibility_modifiers    = "warn"
+filetype_is_file                     = "warn"
+float_cmp_const                      = "warn"
+fn_to_numeric_cast_any               = "warn"
+host_endian_bytes                    = "warn"
+if_then_some_else_none               = "warn"
+indexing_slicing                     = "warn"
+infinite_loop                        = "warn"
+integer_division                     = "warn"
+integer_division_remainder_used      = "warn"
+large_include_file                   = "warn"
+let_underscore_untyped               = "warn"
+little_endian_bytes                  = "warn"
+lossy_float_literal                  = "warn"
+map_err_ignore                       = "warn"
+map_with_unused_argument_over_ranges = "warn"
+mem_forget                           = "warn"
+missing_asserts_for_indexing         = "deny"
+mixed_read_write_in_expression       = "deny"
+# module_name_repetitions         = "deny"
+needless_raw_strings                 = "warn"
+non_zero_suggestions                 = "warn"
+panic                                = "warn"
+panic_in_result_fn                   = "deny"
+pathbuf_init_then_push               = "warn"
+pattern_type_mismatch                = "allow"
+precedence_bits                      = "warn"
+pub_without_shorthand                = "warn"
+rc_buffer                            = "warn"
+rc_mutex                             = "warn"
+redundant_test_prefix                = "warn"
+redundant_type_annotations           = "warn"
+renamed_function_params              = "warn"
+rest_pat_in_fully_bound_structs      = "warn"
+return_and_then                      = "warn"
+# std_instead_of_alloc                 = "deny"
+std_instead_of_core                  = "warn"
+str_to_string                        = "warn"
+string_add                           = "warn"
+string_lit_chars_any                 = "warn"
+tests-outside-test-module            = "warn"
+todo                                 = "warn"
+unneeded_field_pattern               = "warn"
+unseparated_literal_suffix           = "allow"
+unused_trait_names                   = "warn"
+unwrap_used                          = "warn"
+verbose_file_reads                   = "warn"
+
+[lints.rust]
+future-incompatible                        = { level = "warn", priority = -1 }
+# --- Safety & correctness ---
+nonstandard-style                          = { level = "warn", priority = -1 }
+rust-2018-idioms                           = { level = "warn", priority = -1 }
+unknown-or-malformed-diagnostic-attributes = { level = "warn", priority = -1 }
+unused                                     = { level = "warn", priority = -1 }
+
+# --- Standalone (no clippy equivalent) ---
+ambiguous-negative-literals   = "warn"
+closure-returning-async-block = "warn"
+deref-into-dyn-supertrait     = "warn"
+ffi-unwind-calls              = "warn"  # remove if no FFI
+impl-trait-redundant-captures = "warn"
+let-underscore-drop           = "warn"
+macro-use-extern-crate        = "deny"
+meta-variable-misuse          = "deny"
+missing-copy-implementations  = "warn"
+# missing-docs                          = "deny"
+non-ascii-idents              = "deny"
+redundant-imports             = "deny"
+redundant-lifetimes           = "deny"
+single-use-lifetimes          = "deny"
+trivial-casts                 = "deny"
+trivial-numeric-casts         = "deny"
+unit-bindings                 = "deny"
+unnameable-types              = "warn"
+unreachable-pub               = "warn"
+unsafe-code                   = "warn"
+# unused-crate-dependencies     = "warn"
+unused-import-braces          = "deny"
+unused-lifetimes              = "warn"
+unused-qualifications         = "deny"
+# unused-results                                = "warn"
+
+[profile.bench]
+opt-level     = 3
+debug         = false
+lto           = true
+codegen-units = 1
+
+[profile.release]
+opt-level     = 3
+strip         = "symbols"
+lto           = true
+panic         = "abort"
+codegen-units = 1
