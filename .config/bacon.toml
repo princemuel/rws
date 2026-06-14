@@ -1,0 +1,48 @@
+#:schema https://dystroy.org/bacon/.bacon.schema.json
+#:tombi schema.strict = false
+
+default_job = "dev"
+env.CARGO_TERM_COLOR = "always"
+
+[jobs.dev]
+command = [
+  "cargo",
+  "run",
+]
+need_stdout = true
+allow_warnings = true
+background = false
+on_change_strategy = "kill_then_restart"
+
+[jobs.prod]
+command = ["cargo", "run", "--release"]
+need_stdout = true
+allow_warnings = true
+background = false
+on_change_strategy = "kill_then_restart"
+
+[jobs.check]
+command = ["cargo", "check", "--all-targets"]
+need_stdout = false
+
+[jobs.test]
+command = ["cargo", "test"]
+need_stdout = true
+allow_warnings = true
+
+[jobs.lint]
+command = ["cargo", "clippy", "--all-targets"]
+need_stdout = false
+
+[jobs.doc]
+command = ["cargo", "doc", "--no-deps", "--open"]
+need_stdout = false
+on_success = "back"
+
+[keybindings]
+d = "job:dev"
+c = "job:check"
+t = "job:test"
+l = "job:clippy"
+p = "job:pedantic"
+o = "job:doc"

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Websocket Library</title>
+  </head>
+  <body>
+    <h1>Hello Websockets</h1>
+    <p>Start the <code>server</code> and send some text to it via this field:</p>
+    <input id="input" onkeydown="if (event.keyCode === 13) send();" autofocus disabled />
+    <button id="button" onclick="send()" disabled>Send</button>
+    <p id="output"></p>
+    <script>
+      // TODO: it would be ideal if the port somehow was taken from a common config shared between all the examples
+      // Right now it's located in example_config.c3, but obviously c3 file is not usable in js
+      const ws = new WebSocket("ws://localhost:9001");
+      // const ws = new WebSocket("ws://127.0.0.1:9001");
+      ws.onerror = (e) => {
+        console.log("WebSocket ERROR", e);
+      };
+      ws.onopen = (e) => {
+        console.log("WebSocket OPEN", e);
+        input.disabled = false;
+        button.disabled = false;
+        input.focus();
+        output.innerText = `WebSocket connection established`;
+      };
+      ws.onmessage = (e) => {
+        console.log("WebSocket MESSAGE", e);
+        // TODO: Maybe append the message instead of replacing it?
+        output.innerText = `Response from the server: ${e.data}`;
+      };
+      ws.onclose = (e) => {
+        console.log("WebSocket CLOSE", e);
+        input.disabled = true;
+        button.disabled = true;
+        output.innerText = `WebSocket connection closed. Make sure Echo Server is running.`;
+      };
+      function send() {
+        if (ws.readyState === WebSocket.OPEN) ws.send(input.value);
+      }
+    </script>
+  </body>
+</html>
