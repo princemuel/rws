@@ -1,16 +1,15 @@
 [package]
-name = "rws"
+name    = "rws"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-base64 = "0.22.1"
-libc = "0.2.186"
-openssl = "0.10.78"
-rand = "0.10.1"
-rustls = "0.23.40"
-sha1 = "0.11.0"
-
+base64    = "0.22"
+libc      = "0.2"
+rand      = "0.10"
+rustls    = "0.23"
+sha1      = "0.11"
+thiserror = "2"
 
 [features]
 default = []
@@ -40,6 +39,7 @@ else_if_without_else                 = "warn"
 empty_drop                           = "deny"
 empty_enum_variants_with_brackets    = "warn"
 empty_structs_with_brackets          = "warn"
+fallible_impl_from                   = "deny"
 field_scoped_visibility_modifiers    = "warn"
 filetype_is_file                     = "warn"
 float_cmp_const                      = "warn"
